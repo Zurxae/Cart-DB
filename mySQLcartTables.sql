@@ -34,6 +34,6 @@ foreign key(tid) references transactions(tid)
 );
 CREATE TABLE items(
 item_name varchar(50),
-price decimal,
+price decimal (4,2),
 primary key(item_name)
 );
