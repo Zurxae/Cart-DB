@@ -9,19 +9,19 @@ def login():
     return render_template('login.html')
 
 @app.route('/signup/')
-def login():
+def signUp():
     return render_template('sign-up.html')
 
 @app.route('/editinfo/')
-def login():
+def editInfo():
     return render_template('edit-info.html')
 
 @app.route('/menu/')
-def login():
+def menu():
     return render_template('menu.html')
 
 @app.route('/checkout/')
-def login():
+def checkout():
     return render_template('checkout.html')
 
 
