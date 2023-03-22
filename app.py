@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, flash, redirect, url_for
-from forms import LoginForm
+from forms import LoginForm, SignUpForm
 #import mysql.connector
 
 app = Flask(__name__)
@@ -15,9 +15,13 @@ def login():
     return render_template('login.html', form = form)
         
 
-@app.route('/signup/')
+@app.route('/signup/', methods = ['GET', 'POST'])
 def signUp():
-    return render_template('sign-up.html')
+    form = SignUpForm()
+
+    if form.validate_on_submit():
+        return redirect(url_for('menu'))
+    return render_template('sign-up.html', form = form)
 
 @app.route('/editinfo/')
 def editInfo():
