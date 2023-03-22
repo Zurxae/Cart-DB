@@ -1,24 +1,19 @@
-from flask import Flask, render_template, request, flash
+from flask import Flask, render_template, request, flash, redirect, url_for
 from forms import LoginForm
 #import mysql.connector
 
 app = Flask(__name__)
+app.secret_key = "secret"
 
 @app.route('/', methods = ['GET', 'POST'])
 @app.route('/login/', methods = ['GET', 'POST'])
 def login():
     form = LoginForm()
 
-    if request.method == 'POST':
-        if form.validate() == False:
-            flash('All fields are required.')
-            return render_template('login.html', form = form)
-        else:
-            return render_template('menu.html')
-    elif request.method == 'GET':
-        return render_template('login.html', form = form)
-
-    return render_template('login.html')
+    if form.validate_on_submit():
+        return redirect(url_for('menu'))
+    return render_template('login.html', form = form)
+        
 
 @app.route('/signup/')
 def signUp():

@@ -1,8 +1,8 @@
-from flask_wtf import Form
-from wtforms import TextField, PasswordField, IntegerField, TextAreaField, SubmitField, RadioField, SelectField
-from wtforms import validators, ValidationError
+from flask_wtf import FlaskForm
+from wtforms import (StringField, PasswordField, SubmitField)
+from wtforms.validators import InputRequired
 
-class LoginForm(Form):
-    email = TextField("email", [validators.DataRequired("Please enter your email.")])
-    password = PasswordField("password", [validators.DataRequired("Please enter your password.")])
+class LoginForm(FlaskForm):
+    email = StringField("email", validators=[InputRequired()])
+    password = PasswordField("password", validators=[InputRequired()])
     submit = SubmitField("Login")

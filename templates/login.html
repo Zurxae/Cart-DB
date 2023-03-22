@@ -5,20 +5,14 @@
         <h1>{% block title %} Login {% endblock %}</h1>
     </header>
     <main>
-        {% for message in form.name.errors %}
-            <div>{{ message }}</div>
-        {% endfor %}
-     
-        {% for message in form.email.errors %}
-            <div>{{ message }}</div>
-        {% endfor %}
-        
-        <form action = "http://localhost:5000/contact" method = post>
+        <form action = "http://localhost:5000/login/" method = POST>
             <fieldset>
-            <legend>Contact Form</legend>
-            {{ form.hidden_tag() }}
+            <legend>Login Form</legend>
             
             <div style = font-size:20px; font-weight:bold; margin-left:150px;>
+                
+                {{ form.csrf_token }}
+
                 {{ form.email.label }}<br>
                 {{ form.email }}
                 <br>
