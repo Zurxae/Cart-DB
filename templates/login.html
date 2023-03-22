@@ -1,6 +1,36 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{% block title %} Login {% endblock %}</h1>
-
+    <header>    
+        <h1>{% block title %} Login {% endblock %}</h1>
+    </header>
+    <main>
+        {% for message in form.name.errors %}
+            <div>{{ message }}</div>
+        {% endfor %}
+     
+        {% for message in form.email.errors %}
+            <div>{{ message }}</div>
+        {% endfor %}
+        
+        <form action = "http://localhost:5000/contact" method = post>
+            <fieldset>
+            <legend>Contact Form</legend>
+            {{ form.hidden_tag() }}
+            
+            <div style = font-size:20px; font-weight:bold; margin-left:150px;>
+                {{ form.email.label }}<br>
+                {{ form.email }}
+                <br>
+                
+                {{ form.password.label }}<br>
+                {{ form.password }}
+                <br>
+                
+                {{ form.submit }}
+            </div>
+            
+            </fieldset>
+        </form> 
+    </main>
 {% endblock %}
