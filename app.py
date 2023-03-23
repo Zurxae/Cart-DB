@@ -1,17 +1,33 @@
-from flask import Flask, render_template, request, flash, redirect, url_for
+from flask import Flask, render_template, request, flash, redirect, url_for, session
 from forms import LoginForm, SignUpForm
+from widgets.authUser import authUser
 #import mysql.connector
 
 app = Flask(__name__)
 app.secret_key = "secret"
 
+config = {
+    "host": "localhost",
+    "port": 3306,
+    "database": "cart",
+    "user": "root",
+    "password": "root",
+    "charset": "utf8",
+    "use_unicode": True,
+    "get_warnings": True,
+}
+
 @app.route('/', methods = ['GET', 'POST'])
 @app.route('/login/', methods = ['GET', 'POST'])
 def login():
     form = LoginForm()
-
+    
     if form.validate_on_submit():
-        return redirect(url_for('menu'))
+        passed, email = authUser(form, config)
+        
+        if passed:
+            session['email'] = email
+            return redirect(url_for('menu'))
     return render_template('login.html', form = form)
         
 
@@ -36,19 +52,9 @@ def checkout():
     return render_template('checkout.html')
 
 
-# config = {
-#     "host": "localhost",
-#     "port": 3306,
-#     "database": "cart",
-#     "user": "root",
-#     "password": "root",
-#     "charset": "utf8",
-#     "use_unicode": True,
-#     "get_warnings": True,
-# }
 
-# db = mysql.connector.Connect(**config)
-# cursor = db.cursor()
+
+
 
 # refresh_db = "DROP TABLE IF EXISTS users"
 # cursor.execute(refresh_db)
