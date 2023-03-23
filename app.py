@@ -61,12 +61,16 @@ def editInfo():
 
 @app.route('/menu/', methods=['GET', 'POST'])
 def menu():
-    form = MenuForm()
+    form = MenuForm(chicken_tenders=0, coke=0, hamburger=0, hot_dog=0, pepsi=0, water=0)
     print('1')
     if form.validate_on_submit():
+        
         print("2")
         menuOrder = [form.chicken_tenders.data, form.coke.data, form.hamburger.data, form.hot_dog.data, form.pepsi.data, form.water.data,]
         print(menuOrder)
+        session['menuOrder'] = menuOrder
+        print(session['email'], session['menuOrder'])
+
         return redirect(url_for('checkout'))
     return render_template('menu.html', form=form)  
 

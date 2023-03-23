@@ -35,10 +35,10 @@ class EditInfoForm(FlaskForm):
 
 
 class MenuForm(FlaskForm):
-    chicken_tenders = IntegerField('Chicken Tenders', [validators.DataRequired(), validators.NumberRange(min=0)], default = 0)
-    coke = IntegerField('Coke', [validators.DataRequired(), validators.NumberRange(min=0)], default = 0)
-    hamburger = IntegerField('Hamburger', [validators.DataRequired(), validators.NumberRange(min=0)], default = 0)
-    hot_dog = IntegerField('Hot Dog', [validators.DataRequired(), validators.NumberRange(min=0)], default = 0)
-    pepsi = IntegerField('Pepsi', [validators.DataRequired(), validators.NumberRange(min=0)], default = 0)
-    water = IntegerField('Water', [validators.DataRequired(), validators.NumberRange(min=0)], default = 0)
+    chicken_tenders = IntegerField('Chicken Tenders', [validators.NumberRange(min=0)])
+    coke = IntegerField('Coke', [validators.NumberRange(min=0)])
+    hamburger = IntegerField('Hamburger', [validators.NumberRange(min=0)])
+    hot_dog = IntegerField('Hot Dog', [validators.NumberRange(min=0)])
+    pepsi = IntegerField('Pepsi', [validators.NumberRange(min=0)])
+    water = IntegerField('Water', [validators.NumberRange(min=0)])
     submit = SubmitField("Checkout")
