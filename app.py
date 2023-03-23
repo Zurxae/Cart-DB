@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, flash, redirect, url_for, session
 from forms import LoginForm, SignUpForm
 from widgets.authUser import authUser
+from widgets.enrollUser import enrollUser
 #import mysql.connector
 
 app = Flask(__name__)
@@ -34,9 +35,13 @@ def login():
 @app.route('/signup/', methods = ['GET', 'POST'])
 def signUp():
     form = SignUpForm()
-
+    
     if form.validate_on_submit():
-        return redirect(url_for('menu'))
+        passed, email = enrollUser(form, config)
+
+        if passed:
+            session['email'] = email
+            return redirect(url_for('menu'))
     return render_template('sign-up.html', form = form)
 
 @app.route('/editinfo/')
