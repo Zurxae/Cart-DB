@@ -22,3 +22,13 @@ class SignUpForm(FlaskForm):
     state = StringField('State', [validators.DataRequired()])
     city = StringField('City', [validators.DataRequired()])
     submit = SubmitField("Submit")
+
+
+class EditInfoForm(FlaskForm):
+    fname = StringField('First Name', [validators.DataRequired()])
+    lname = StringField('Last Name', [validators.DataRequired()])
+    address = StringField('Address', [validators.DataRequired()])
+    zipcode = IntegerField('Zip Code', [validators.DataRequired()])
+    state = StringField('State', [validators.DataRequired()])
+    city = StringField('City', [validators.DataRequired()])
+    submit = SubmitField("Submit")

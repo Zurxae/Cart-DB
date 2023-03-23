@@ -1,6 +1,47 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<header>    
     <h1>{% block title %} Edit Information {% endblock %}</h1>
+</header>
+<main>
+    <form action = "http://localhost:5000/editinfo/" method = POST>
+        <fieldset>
+        <legend>Edit Information Form</legend>
+        
+        <div style = font-size:20px; font-weight:bold; margin-left:150px;>
+            
+            {{ form.csrf_token }}
+
+            {{ form.fname.label }}<br>
+            {{ form.fname }}
+            <br>
+
+            {{ form.lname.label }}<br>
+            {{ form.lname }}
+            <br>
+
+            {{ form.address.label }}<br>
+            {{ form.address }}
+            <br>
+
+            {{ form.zipcode.label }}<br>
+            {{ form.zipcode }}
+            <br>
+
+            {{ form.state.label }}<br>
+            {{ form.state }}
+            <br>
+
+            {{ form.city.label }}<br>
+            {{ form.city }}
+            <br>
+
+            {{ form.submit }}
+        </div>
+        
+        </fieldset>
+    </form> 
+</main>
 
 {% endblock %}

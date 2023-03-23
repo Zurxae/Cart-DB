@@ -1,7 +1,9 @@
 from flask import Flask, render_template, request, flash, redirect, url_for, session
-from forms import LoginForm, SignUpForm
+from forms import LoginForm, SignUpForm, EditInfoForm
 from widgets.authUser import authUser
 from widgets.enrollUser import enrollUser
+from widgets.editUserInfo import editUserInfo
+from widgets.getUserInfo import getUserInfo
 #import mysql.connector
 
 app = Flask(__name__)
@@ -44,9 +46,19 @@ def signUp():
             return redirect(url_for('menu'))
     return render_template('sign-up.html', form = form)
 
-@app.route('/editinfo/')
+@app.route('/editinfo/', methods = ['GET', 'POST'])
 def editInfo():
-    return render_template('edit-info.html')
+    values = getUserInfo(config, session['email'])
+    print(session['email'])
+    print(values)
+    form = EditInfoForm(fname=values[0], lname=values[1], address=values[2], zipcode=values[3], state=values[4], city=values[5])
+
+    if form.validate_on_submit():
+        passed = editUserInfo(form, config)
+
+        if passed:
+            return redirect(url_for('menu'))
+    return render_template('edit-info.html', form = form)
 
 @app.route('/menu/')
 def menu():
@@ -56,21 +68,3 @@ def menu():
 def checkout():
     return render_template('checkout.html')
 
-
-
-
-
-
-# refresh_db = "DROP TABLE IF EXISTS users"
-# cursor.execute(refresh_db)
-
-# create = """
-# CREATE TABLE users (
-#     email VARCHAR(50) NOT NULL,
-#     password VARCHAR(50) NOT NULL,
-#     fname VARCHAR(50) DEFAULT '' NOT NULL,
-#     lname VARCHAR(50) DEFAULT '' NOT NULL,
-#     PRIMARY KEY(email)
-# ) ENGINE=InnoDB"""
-
-# cursor.execute(create)
