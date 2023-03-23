@@ -11,17 +11,11 @@ def getUserInfo(config, email):
 
         cursor.execute(getUserInfoQuery.format(email=email))
         user = cursor.fetchone()
-
-        print(user)
         
         cursor.execute(getAddressInfoQuery.format(email=email))
         userMore = cursor.fetchone()
 
-        print(userMore)
-
         user += userMore
-
-        print(user)
 
         passed = True
     except mysql.connector.Error as e:

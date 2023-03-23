@@ -49,13 +49,12 @@ def signUp():
 @app.route('/editinfo/', methods = ['GET', 'POST'])
 def editInfo():
     values = getUserInfo(config, session['email'])
-    print(session['email'])
-    print(values)
+    
     form = EditInfoForm(fname=values[0], lname=values[1], address=values[2], zipcode=values[3], state=values[4], city=values[5])
 
     if form.validate_on_submit():
-        passed = editUserInfo(form, config)
-
+        passed = editUserInfo(form, config, session['email'])
+        
         if passed:
             return redirect(url_for('menu'))
     return render_template('edit-info.html', form = form)
