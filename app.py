@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, flash, redirect, url_for, session
-from forms import LoginForm, SignUpForm, EditInfoForm
+from forms import LoginForm, SignUpForm, EditInfoForm, MenuForm
 from widgets.authUser import authUser
 from widgets.enrollUser import enrollUser
 from widgets.editUserInfo import editUserInfo
@@ -59,9 +59,16 @@ def editInfo():
             return redirect(url_for('menu'))
     return render_template('edit-info.html', form = form)
 
-@app.route('/menu/')
+@app.route('/menu/', methods=['GET', 'POST'])
 def menu():
-    return render_template('menu.html')
+    form = MenuForm()
+    print('1')
+    if form.validate_on_submit():
+        print("2")
+        menuOrder = [form.chicken_tenders.data, form.coke.data, form.hamburger.data, form.hot_dog.data, form.pepsi.data, form.water.data,]
+        print(menuOrder)
+        return redirect(url_for('checkout'))
+    return render_template('menu.html', form=form)  
 
 @app.route('/checkout/')
 def checkout():

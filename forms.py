@@ -32,3 +32,13 @@ class EditInfoForm(FlaskForm):
     state = StringField('State', [validators.DataRequired()])
     city = StringField('City', [validators.DataRequired()])
     submit = SubmitField("Submit")
+
+
+class MenuForm(FlaskForm):
+    chicken_tenders = IntegerField('Chicken Tenders', [validators.DataRequired(), validators.NumberRange(min=0)], default = 0)
+    coke = IntegerField('Coke', [validators.DataRequired(), validators.NumberRange(min=0)], default = 0)
+    hamburger = IntegerField('Hamburger', [validators.DataRequired(), validators.NumberRange(min=0)], default = 0)
+    hot_dog = IntegerField('Hot Dog', [validators.DataRequired(), validators.NumberRange(min=0)], default = 0)
+    pepsi = IntegerField('Pepsi', [validators.DataRequired(), validators.NumberRange(min=0)], default = 0)
+    water = IntegerField('Water', [validators.DataRequired(), validators.NumberRange(min=0)], default = 0)
+    submit = SubmitField("Checkout")

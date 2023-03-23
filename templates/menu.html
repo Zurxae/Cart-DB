@@ -1,6 +1,49 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<header>    
     <h1>{% block title %} Menu {% endblock %}</h1>
+</header>
+<main>
+    <form action = "http://localhost:5000/menu/" method = POST>
+        <fieldset>
+        <legend>Menu</legend>
+        
+        <div style = font-size:20px; font-weight:bold; margin-left:150px;>
+            
+            {{ form.csrf_token }}
+
+            {{ form.chicken_tenders.label }}<br>
+            {{ form.chicken_tenders }}
+            <br>
+
+            {{ form.coke.label }}<br>
+            {{ form.coke }}
+            <br>
+            
+            {{ form.hamburger.label }}<br>
+            {{ form.hamburger }}
+            <br>
+
+            {{ form.hot_dog.label }}<br>
+            {{ form.hot_dog }}
+            <br>
+            
+            {{ form.pepsi.label }}<br>
+            {{ form.pepsi }}
+            <br>
+
+            {{ form.water.label }}<br>
+            {{ form.water }}
+            <br>
+            
+            
+
+            {{ form.submit }}
+        </div>
+        
+        </fieldset>
+    </form> 
+</main>
 
 {% endblock %}
