@@ -1,6 +1,42 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<header>    
     <h1>{% block title %} Checkout {% endblock %}</h1>
+</header>
+<div style="display: flex;">
+<main style="flex-grow: 2;">
+    <form action = "http://localhost:5000/checkout/" method = POST>
+        <fieldset>
+        <legend>Payment Info</legend>
+        
+        <div style = font-size:20px; font-weight:bold; margin-left:150px;>
+            
+            {{ form.csrf_token }}
 
+            {{ form.card_number.label }}<br>
+            {{ form.card_number }}
+            <br>
+            
+            {{ form.cvc.label }}<br>
+            {{ form.cvc }}
+            <br>
+            
+            {{ form.submit }}
+        </div>
+        </fieldset>
+    </form> 
+</main>
+<section style="flex-grow: 1; text-align: center; background-color: #ccc;">
+    <h2>Items</h2>
+    {% for item in range(final_items|length) %}
+    <p>
+        {{final_items[item]}} x {{final_count[item]}} = $0.00
+    </p>
+    {% endfor %}
+    <div>
+        <h3>Total Amount: $9.00</h3>
+    </div>
+</section>
+</div>
 {% endblock %}

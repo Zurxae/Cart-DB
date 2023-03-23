@@ -35,10 +35,15 @@ class EditInfoForm(FlaskForm):
 
 
 class MenuForm(FlaskForm):
-    chicken_tenders = IntegerField('Chicken Tenders', [validators.NumberRange(min=0)])
-    coke = IntegerField('Coke', [validators.NumberRange(min=0)])
-    hamburger = IntegerField('Hamburger', [validators.NumberRange(min=0)])
-    hot_dog = IntegerField('Hot Dog', [validators.NumberRange(min=0)])
-    pepsi = IntegerField('Pepsi', [validators.NumberRange(min=0)])
-    water = IntegerField('Water', [validators.NumberRange(min=0)])
+    chicken_tenders = IntegerField('Chicken Tenders ($4.00)', [validators.NumberRange(min=0)], default=0)
+    coke = IntegerField('Coke ($1.20)', [validators.NumberRange(min=0)], default=0)
+    hamburger = IntegerField('Hamburger ($5.50)', [validators.NumberRange(min=0)], default=0)
+    hot_dog = IntegerField('Hot Dog ($4.75)', [validators.NumberRange(min=0)], default=0)
+    pepsi = IntegerField('Pepsi ($1.20)', [validators.NumberRange(min=0)], default=0)
+    water = IntegerField('Water ($0.50)', [validators.NumberRange(min=0)], default=0)
     submit = SubmitField("Checkout")
+
+class CheckoutForm(FlaskForm):
+    card_number = IntegerField('Card Number', [validators.DataRequired(), validators.Length(min=7)])
+    cvc = IntegerField('CVC', [validators.DataRequired(), validators.Length(min=3, max=3)])
+    submit = SubmitField("Confirm Order")
