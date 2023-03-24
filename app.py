@@ -95,11 +95,13 @@ def checkout():
     
     if form.validate_on_submit():
         passed = checkoutOrder(config, session['email'], final_items, final_count)
-
+        
         if passed:
             print('Transaction Successful')
+            flash('Order was succesful!')
         else:
             print('Failed')
+        
 
     return render_template('checkout.html', form=form, menuOrder=session["menuOrder"], final_items=final_items, final_count=final_count, item_prices=item_prices, total_amount=total_amount)
 

@@ -28,7 +28,7 @@ foreign key(email) references users(email)
 DROP TABLE IF EXISTS transactions;
 CREATE TABLE transactions(
 email varchar(50),
-amount int,
+amount decimal(4,2),
 tid int NOT NULL AUTO_INCREMENT,
 foreign key(email) references users(email),
 primary key(tid)
