@@ -44,6 +44,6 @@ class MenuForm(FlaskForm):
     submit = SubmitField("Checkout")
 
 class CheckoutForm(FlaskForm):
-    card_number = IntegerField('Card Number', [validators.DataRequired(), validators.Length(min=7)])
-    cvc = IntegerField('CVC', [validators.DataRequired(), validators.Length(min=3, max=3)])
+    card_number = IntegerField('Card Number', [validators.DataRequired()])
+    cvc = IntegerField('CVC', [validators.DataRequired()])
     submit = SubmitField("Confirm Order")

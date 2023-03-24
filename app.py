@@ -4,6 +4,7 @@ from widgets.authUser import authUser
 from widgets.enrollUser import enrollUser
 from widgets.editUserInfo import editUserInfo
 from widgets.getUserInfo import getUserInfo
+from widgets.checkout import checkoutOrder
 #import mysql.connector
 
 app = Flask(__name__)
@@ -80,11 +81,22 @@ def checkout():
     item_names = ["Chicken Tenders", "Coke", "Hamburger", "Hotdog", "Pepsi", "Water"]
     final_items = []
     final_count = []
+
     for index in range(len(session["menuOrder"])):
         if(session["menuOrder"][index] > 0):
             final_items.append(item_names[index])
+
     for count in session["menuOrder"]:
         if(count > 0):
             final_count.append(count)
+    
+    if form.validate_on_submit():
+        passed = checkoutOrder(config, session['email'], final_items, final_count)
+
+        if passed:
+            print('Transaction Successful')
+        else:
+            print('Failed')
+
     return render_template('checkout.html', form=form, menuOrder=session["menuOrder"], final_items=final_items, final_count=final_count)
 
