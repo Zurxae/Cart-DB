@@ -6,6 +6,7 @@ from widgets.editUserInfo import editUserInfo
 from widgets.getUserInfo import getUserInfo
 from widgets.checkout import checkoutOrder
 from widgets.getPrices import getPrices
+from widgets.getPayInfo import getPayInfo
 #import mysql.connector
 
 app = Flask(__name__)
@@ -78,7 +79,11 @@ def menu():
 
 @app.route('/checkout/', methods=['GET', 'POST'])
 def checkout():
-    form = CheckoutForm()
+    getPay, passed = getPayInfo(config, session["email"])
+    if(passed):
+        form = CheckoutForm(card_number=getPay[0], cvc=getPay[1])
+    else:
+        form = CheckoutForm()
     item_names = ["Chicken Tenders", "Coke", "Hamburger", "Hotdog", "Pepsi", "Water"]
     final_items = []
     final_count = []
@@ -94,7 +99,7 @@ def checkout():
     item_prices, total_amount = getPrices(final_items, final_count, config)
     
     if form.validate_on_submit():
-        passed = checkoutOrder(config, session['email'], final_items, final_count)
+        passed = checkoutOrder(config, session['email'], final_items, final_count, form)
         
         if passed:
             print('Transaction Successful')

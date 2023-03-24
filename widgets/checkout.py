@@ -1,6 +1,6 @@
 import mysql.connector
 
-def checkoutOrder(config, email, final_items, final_count):
+def checkoutOrder(config, email, final_items, final_count, form):
     passed = False
 
 
@@ -17,6 +17,8 @@ def checkoutOrder(config, email, final_items, final_count):
         storeIncludeQuery = "INSERT INTO includes VALUES ('{item_name}', '{tid}', '{count}');"
 
         fixCacheBugQuery = "SET @@SESSION.information_schema_stats_expiry = 0;"
+
+        storePayInfoQuery = "INSERT INTO payment_info VALUES ('{email}', '{card_number}', '{cvc}');"
 
         total_amount = 0
 
@@ -44,6 +46,13 @@ def checkoutOrder(config, email, final_items, final_count):
 
         for i in range(len(final_items)):
             cursor.execute(storeIncludeQuery.format(item_name=final_items[i], tid=tid, count=final_count[i]))
+
+        getPayInfoQuery = "SELECT card_number, cvc FROM payment_info where email = '{email}';"
+        cursor.execute(getPayInfoQuery.format(email=email))
+        getPayList = cursor.fetchone()
+
+        if(cursor.rowcount == 0):
+            cursor.execute(storePayInfoQuery.format(email=email,card_number=form.card_number.data, cvc=form.cvc.data))
 
         db.commit()
         
