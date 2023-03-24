@@ -5,6 +5,7 @@ from widgets.enrollUser import enrollUser
 from widgets.editUserInfo import editUserInfo
 from widgets.getUserInfo import getUserInfo
 from widgets.checkout import checkoutOrder
+from widgets.getPrices import getPrices
 #import mysql.connector
 
 app = Flask(__name__)
@@ -90,6 +91,8 @@ def checkout():
         if(count > 0):
             final_count.append(count)
     
+    item_prices, total_amount = getPrices(final_items, final_count, config)
+    
     if form.validate_on_submit():
         passed = checkoutOrder(config, session['email'], final_items, final_count)
 
@@ -98,5 +101,5 @@ def checkout():
         else:
             print('Failed')
 
-    return render_template('checkout.html', form=form, menuOrder=session["menuOrder"], final_items=final_items, final_count=final_count)
+    return render_template('checkout.html', form=form, menuOrder=session["menuOrder"], final_items=final_items, final_count=final_count, item_prices=item_prices, total_amount=total_amount)
 

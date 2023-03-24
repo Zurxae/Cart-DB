@@ -31,11 +31,11 @@
     <h2>Items</h2>
     {% for item in range(final_items|length) %}
     <p>
-        {{final_items[item]}} x {{final_count[item]}} = $0.00
+        {{final_items[item]}} x {{final_count[item]}} = {{final_count[item] * item_prices[item]}}
     </p>
     {% endfor %}
     <div>
-        <h3>Total Amount: $9.00</h3>
+        <h3>Total Amount: ${{total_amount}}</h3>
     </div>
 </section>
 </div>
